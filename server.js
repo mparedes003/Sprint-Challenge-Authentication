@@ -14,6 +14,7 @@ server.use(express.json());
 server.use(cors());
 
 configureRoutes(server);
+// server.use('/08ad1pao69.execute-api.us-east-1.amazonaws.com/dev/random_ten/api', configureRoutes);
 
 module.exports = {
   server,
