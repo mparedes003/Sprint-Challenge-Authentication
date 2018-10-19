@@ -1,3 +1,4 @@
+// Import node modules
 const bcrypt = require('bcryptjs');
 const db = require('../database/dbConfig');
 const axios = require('axios');
@@ -12,10 +13,10 @@ module.exports = server => {
 
 // ROUTES/ENDPOINTS
 
+// Resgister/Create a user
 function register(req, res) {
-  // implement user registration
   const credentials = req.body;
-  console.log(credentials);
+  // console.log(credentials);
 
   const hash = bcrypt.hashSync(credentials.password, 14);
   credentials.password = hash;
@@ -33,6 +34,7 @@ function register(req, res) {
     });
 }
 
+// Must have valid login or access to all jokes is not possible
 function login(req, res) {
   // implement user login
   const creds = req.body;
@@ -53,6 +55,7 @@ function login(req, res) {
     });
 }
 
+// Get endpoint to access all jokes
 function getJokes(req, res) {
   axios
     .get(

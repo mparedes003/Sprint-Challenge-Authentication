@@ -2,13 +2,10 @@ require('dotenv').config();
 
 const jwt = require('jsonwebtoken');
 
-// const jwtKey = require('../_secrets/keys').jwtKey;
-
 // quickly see what this file exports
 module.exports = {
   authenticate,
   generateToken,
-  // jwtKey,
 };
 
 // Custom Function for token generation
@@ -30,12 +27,13 @@ const jwtKey =
   }
 
 // implementation details
+// CUSTOM MIDDLEWARE
 function authenticate(req, res, next) {
+  //authentication tokens are normally sent as a header instead of the body
   const token = req.get('Authorization');
 
   if (token) {
     jwt.verify(token, jwtKey, (err, decodedToken) => {
-      //if (err) return res.status(401).json(err);
       
       if (err) {
         // token verification failed
