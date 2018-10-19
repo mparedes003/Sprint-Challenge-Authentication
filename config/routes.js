@@ -1,13 +1,9 @@
-// const express = require('express');
 const bcrypt = require('bcryptjs');
-// const db = require('../database/dbConfig');
+const db = require('../database/dbConfig');
 const axios = require('axios');
 
 const { authenticate , generateToken } = require('./middlewares');
 
-// const router = express.Router();
-
-// module.exports = router;
 module.exports = server => {
   server.post('/api/register', register);
   server.post('/api/login', login);
@@ -25,10 +21,8 @@ function register(req, res) {
   credentials.password = hash;
   // console.log(hash);
 
-  axios
-    .post(
-      'https://08ad1pao69.execute-api.us-east-1.amazonaws.com/dev/random_ten', credentials)
-
+  db('users')
+    .insert(credentials)
     .then(ids => {
       const id = ids[0];
       const token = generateToken({username: credentials.username});
@@ -43,10 +37,7 @@ function login(req, res) {
   // implement user login
   const creds = req.body;
 
-  axios
-    .post(
-      'https://08ad1pao69.execute-api.us-east-1.amazonaws.com/dev/random_ten'
-    )
+  db('users')
     .where({ username: creds.username })
     .first()
     .then(user => {

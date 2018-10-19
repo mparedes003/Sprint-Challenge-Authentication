@@ -2,7 +2,7 @@ require('dotenv').config();
 
 const jwt = require('jsonwebtoken');
 
-const jwtKey = require('../_secrets/keys').jwtKey;
+// const jwtKey = require('../_secrets/keys').jwtKey;
 
 // quickly see what this file exports
 module.exports = {
@@ -12,8 +12,8 @@ module.exports = {
 };
 
 // Custom Function for token generation
-// const jwtKey =
-//   process.env.JWT_KEY || 'add a secret to your .env file with this key';
+const jwtKey =
+  process.env.JWT_KEY || 'add a secret to your .env file with this key';
 
   function generateToken(user) {
     const jwtPayload = {
